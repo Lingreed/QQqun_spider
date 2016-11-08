@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>爪</title>
+
+</head>
+<body>
+    <h1>抓取群信息</h1>
+    <label>bkn:</label>
+    <input type="text" id="bkn" />
+    <input type="button" value="启动" onclick="callExe()" />
+    <label id="waiting" style="display: none">稍等...</label>
+</body>
+<script type="text/javascript">
+    var process = require('child_process');
+
+    function callExe() {
+        var bkn = document.getElementById("bkn").value;
+        document.getElementById("waiting").style.display = "block";
+        process.exec('phantomjs.exe start.js '+bkn , function (error, stdout, stderr) {
+            if (error !== null) {
+                alert('exec error: ' + error);
+            }
+            document.getElementById("waiting").style.display = "none";
+            alert("成功抓取，数据放到D盘根目录下groups.txt,mems.txt");
+        });
+    }
+</script>
+</html>
